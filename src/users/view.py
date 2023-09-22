@@ -1,12 +1,14 @@
 from django import forms
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView,UpdateView
 from django.contrib.auth import authenticate, login as login_user,logout as logout_user
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from .Dto import User
 from .usecases import AddUserToDB
 from .models import User as Userdb
+#TODO:Complete the clean architecture setup
+
 
 class UserForm(forms.Form):
     first_name = forms.CharField(label='First Name', max_length=25)
@@ -18,8 +20,9 @@ class UserForm(forms.Form):
 class LoginForm(forms.Form):
     email = forms.EmailField(label="Email")
     password = forms.CharField(label="Password",widget=forms.PasswordInput)
+
 @login_required()
-@permission_required("users.add_user",raise_exception=True)
+@permission_required("src_users.add_user",raise_exception=True)
 def CreateUser(request):
     if request.method == 'POST':
         form = UserForm(request.POST)
@@ -41,7 +44,7 @@ def CreateUser(request):
 
 
 class ListUsers(LoginRequiredMixin,PermissionRequiredMixin,ListView):
-    permission_required= ['users.change_user','users.view_user']
+    permission_required= ['src_users.change_user','src_users.view_user']
     model = Userdb
     template_name = 'userslist.html'
     context_object_name = 'users'
@@ -68,3 +71,15 @@ def logout(request):
     logout_user(request)
 
     return redirect('users:Login')
+
+
+class UserDetails(DetailView):
+    model = Userdb
+    template_name = 'userdetails.html'
+    context_object_name = "user"
+
+class UserUpdate(UpdateView):
+    model = Userdb
+    template_name = "updateuser.html"
+    fields = ["first_name",'last_name', 'email','username']
+    context_object_name = "user"

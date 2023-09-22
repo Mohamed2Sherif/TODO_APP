@@ -1,7 +1,12 @@
 <div>
 
     {% for user in users %}
-        <p>{{ user.first_name }}</p>
+        <div>
+            <a href="{% url 'users:UserDetails' user.pk %}">
+            {{ user.first_name }} {{ user.last_name }}&nbsp;&nbsp;
+            </a>
+        </div>
+
     {% endfor %}
 
     <a href="{% url 'users:Logout' %}">Logout</a>

@@ -23,5 +23,4 @@ class Managers_Task_Form(forms.ModelForm):
 
         widgets = {
             'deadline': DatePickerInput
-
         }

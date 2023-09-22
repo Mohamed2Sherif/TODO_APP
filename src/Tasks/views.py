@@ -5,9 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DeleteView, UpdateView, DetailView
 from .dto import Task
 from .models import Task as Taskdb
-from .forms import Task_Form,Managers_Task_Form
 from .usecases import add_task_to_database
-from src.users.usecases import get_the_user_group
 from .decorators import  change_task_form
 # TODO: Complete the Clean architecture setup
 @login_required()
@@ -40,7 +38,12 @@ class ListTask(LoginRequiredMixin, ListView):
     model = Taskdb
     template_name = 'listtasks.html'
     context_object_name = 'tasks'
+    def get_queryset(self):
 
+        user= self.request.user.pk
+        queryset = Taskdb.objects.filter(user=user).order_by('deadline')
+
+        return queryset
 
 class UpdateTask(LoginRequiredMixin, UpdateView):
     login_url = '/users/login'

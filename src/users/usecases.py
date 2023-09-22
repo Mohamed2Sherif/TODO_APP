@@ -26,15 +26,6 @@ def AddUserToDB(user:User):
         userdb.groups.add(employee)
 
 
-def get_the_user_group(user_id):
-    user = Userdb.objects.get(pk=user_id)
-    if user.groups.filter(name="Manager").exists():
-        return "MA"
-    if user.groups.filter(name="Moderator").exists():
-        return "MO"
-    if user.groups.filter(name="Employee").exists():
-        return "EM"
-
 
 
 

@@ -1,0 +1,9 @@
+<div>
+
+    <p> {{ user.first_name }} {{ user.last_name }}</p>
+     <p>{{ user.email }} </p>
+     <p>{{ user.username }} </p>
+        <p>{{ user.pk }} </p>
+    <a href="{% url 'tasks:createtask' %}">AssignTask</a>
+    <a href="{% url 'users:UserUpdate' user.pk%}">Update user info</a>
+</div>

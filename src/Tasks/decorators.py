@@ -20,3 +20,10 @@ def change_task_form(groups=[]):
 
         return wrapper_func
     return decorator
+
+# def list_user_tasks(view_func):
+#     @wraps(view_func)
+#     def wrapper_func(request, *args, **kwargs):
+#
+#
+#         return view_func(request,*args,**kwargs)
