@@ -1,0 +1,7 @@
+
+<div>title: {{ task.details }}</div>
+<div>details: {{ task.title }}</div>
+<div>deadline: {{ task.deadline }}</div>
+
+<a href="{% url 'tasks:updatetask' task.pk %}">Change</a>
+<a href="{% url 'tasks:deletetask' task.pk %}">Delete</a>

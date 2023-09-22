@@ -1,0 +1,13 @@
+<div>
+<button type="submit">
+        <a href="{% url 'tasks:createtask' %}"><p>CreateTask</p></a>
+</button>
+<br>
+    {% for task in tasks %}
+        <a href="{% url 'tasks:taskdetail' task.pk %}">{{ task.title }}</a>
+        <a href="{% url 'tasks:updatetask' task.pk %}">Change</a>
+        <a href="{% url 'tasks:deletetask' task.pk %}">Delete</a>
+        <br>
+
+    {% endfor %}
+</div>
